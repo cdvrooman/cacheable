@@ -21,81 +21,77 @@ class CacheThing extends CakeTestModel {}
  */
 class CacheableTestCase extends CakeTestCase {
 
-	/**
-	 * @var     array
-	 */
-	public $fixtures = array(
-		'plugin.cacheable.cache_thing'
-	);
-
-	/**
-	 * @return  void
-	 */
-	public function start() {
-
-		parent::start();
-
-		$this->CacheThing = ClassRegistry::init('Cacheable.CacheThing');
-        $this->CacheThing->Behaviors->attach('Cacheable.Cacheable');
-
-	}
+    /**
+     * @var     array
+     */
+    public $fixtures = array(
+        'plugin.cacheable.cache_thing'
+    );
 
     /**
-	 * @return  void
-	 */
+     * @return  void
+     */
+    public function start() {
+
+        parent::start();
+
+        $this->CacheThing = ClassRegistry::init('Cacheable.CacheThing');
+        $this->CacheThing->Behaviors->attach('Cacheable.Cacheable');
+    }
+
+    /**
+     * @return  void
+     */
     public function startTest($action) {
 
         parent::startTest($action);
 
-        Configure::write('Cache.disable',   false);
-        Configure::write('Cache.check',     true);
-
+        Configure::write('Cache.disable', false);
+        Configure::write('Cache.check', true);
     }
 
-	/**
-	 * Test Instance Creation
-	 *
-	 * @return  void
-	 */
-	public function testInstanceSetup() {
+    /**
+     * Test Instance Creation
+     *
+     * @return  void
+     */
+    public function testInstanceSetup() {
 
-		$this->assertIsA($this->CacheThing, 'Model');
-		$this->assertTrue($this->CacheThing->Behaviors->attached('Cacheable'));
-
-	}
+        $this->assertIsA($this->CacheThing, 'Model');
+        $this->assertTrue($this->CacheThing->Behaviors->attached('Cacheable'));
+    }
 
     /**
-	 * Test getting the cache dir
-	 *
-	 * @return  void
-	 */
-	public function testGetCacheDir() {
+     * Test getting the cache dir
+     *
+     * @return  void
+     */
+    public function testGetCacheDir() {
 
         $id1 = String::uuid();
         $result1 = $this->CacheThing->getCacheDir();
-        $this->assertTrue(file_exists($result1),    "Directory not created: $result1 ");
-        $this->assertTrue(is_dir($result1),         "Path does not indicate a directory: $result1");
-        $this->assertTrue(is_writeable($result1),   "Directory not writeable: $result1");
+        $this->assertTrue(file_exists($result1), "Directory not created: $result1 ");
+        $this->assertTrue(is_dir($result1), "Path does not indicate a directory: $result1");
+        $this->assertTrue(is_writeable($result1), "Directory not writeable: $result1");
 
         $result2 = $this->CacheThing->getCacheDir($id1);
-        $this->assertTrue(file_exists($result2),    "Directory not created: $result2 ");
-        $this->assertTrue(is_dir($result2),         "Path does not indicate a directory: $result2");
-        $this->assertTrue(is_writeable($result2),   "Directory not writeable: $result2");
+        $this->assertTrue(file_exists($result2), "Directory not created: $result2 ");
+        $this->assertTrue(is_dir($result2), "Path does not indicate a directory: $result2");
+        $this->assertTrue(is_writeable($result2), "Directory not writeable: $result2");
 
         $this->CacheThing->id = $id1;
         $result3 = $this->CacheThing->getCacheDir();
-        $this->assertTrue(file_exists($result3),    "Directory not created: $result3 ");
-        $this->assertTrue(is_dir($result3),         "Path does not indicate a directory: $result3");
-        $this->assertTrue(is_writeable($result3),   "Directory not writeable: $result3");
-
-	}
+        $this->assertTrue(file_exists($result3), "Directory not created: $result3 ");
+        $this->assertTrue(is_dir($result3), "Path does not indicate a directory: $result3");
+        $this->assertTrue(is_writeable($result3), "Directory not writeable: $result3");
+    }
 
     /**
-	 * Test getting the cache config
-	 *
-	 * @return  void
-	 */
-	public function testGetCacheConfig() {
+     * Test getting the cache config
+     *
+     * @return  void
+     */
+    public function testGetCacheConfig() {
 
         $id1 = String::uuid();
         $result1 = $this->CacheThing->getCacheConfig();
@@ -104,18 +100,18 @@ class CacheableTestCase extends CakeTestCase {
 
         $result2 = $this->CacheThing->getCacheConfig($id1);
         $this->assertTrue(Cache::config($result2));
-        $this->assertEqual($result2, $this->CacheThing->table.'_'.$id1);
-	}
+        $this->assertEqual($result2, $this->CacheThing->table . '_' . $id1);
+    }
 
     /**
-	 * Test getting and setting the cache data
-	 *
-	 * @return  void
-	 */
-	public function testGetAndSetCached() {
+     * Test getting and setting the cache data
+     *
+     * @return  void
+     */
+    public function testGetAndSetCached() {
 
         $uuid1 = String::uuid();
-        $key1  = 'test';
+        $key1 = 'test';
         $data1 = array(
             'foo',
             'bar',
@@ -135,19 +131,17 @@ class CacheableTestCase extends CakeTestCase {
         $result4 = $this->CacheThing->getCached($key1, $uuid1);
         $this->assertTrue($result4);
         $this->assertEqual($result4, $data1);
-
-
-	}
+    }
 
     /**
-	 * Test deleting specific cache data
-	 *
-	 * @return  void
-	 */
-	public function testDeleteCached() {
+     * Test deleting specific cache data
+     *
+     * @return  void
+     */
+    public function testDeleteCached() {
 
         $uuid1 = String::uuid();
-        $key1  = 'test';
+        $key1 = 'test';
         $data1 = array(
             'foo',
             'bar',
@@ -169,25 +163,23 @@ class CacheableTestCase extends CakeTestCase {
 
         $result4 = $this->CacheThing->getCached($key1, $uuid1);
         $this->assertFalse($result4);
-
-
-	}
+    }
 
     /**
-	 * Test deleting specific cache data
-	 *
-	 * @return  void
-	 */
-	public function testClearCached() {
+     * Test deleting specific cache data
+     *
+     * @return  void
+     */
+    public function testClearCached() {
 
         $uuid1 = String::uuid();
-        $key1  = 'test';
+        $key1 = 'test';
         $data1 = array(
             'foo',
             'bar',
             'baz'
         );
-        
+
         $this->CacheThing->setCached($key1, $data1);
         $this->CacheThing->setCached($key1, $data1, $uuid1);
 
@@ -206,15 +198,14 @@ class CacheableTestCase extends CakeTestCase {
         $folder2 = new Folder($config2['path']);
         $contents2 = $folder2->read();
         $this->assertTrue(count($contents2['1']) == 0);
-
-	}
+    }
 
     /**
-	 * Test afterSave callback
-	 *
-	 * @return  void
-	 */
-	public function testAfterSave() {
+     * Test afterSave callback
+     *
+     * @return  void
+     */
+    public function testAfterSave() {
 
         $data1 = array(
             'foo',
@@ -239,15 +230,14 @@ class CacheableTestCase extends CakeTestCase {
 
         $result2 = $this->CacheThing->getCached('test');
         $this->assertFalse($result2);
-
     }
 
     /**
-	 * Test afterDelete callback
-	 *
-	 * @return  void
-	 */
-	public function testAfterDelete() {
+     * Test afterDelete callback
+     *
+     * @return  void
+     */
+    public function testAfterDelete() {
 
         $data1 = array(
             'foo',
@@ -272,15 +262,14 @@ class CacheableTestCase extends CakeTestCase {
 
         $result2 = $this->CacheThing->getCached('test');
         $this->assertFalse($result2);
-
     }
 
     /**
-	 * Test afterDelete callback
-	 *
-	 * @return  void
-	 */
-	public function testFindCachedAndCallbacks() {
+     * Test afterDelete callback
+     *
+     * @return  void
+     */
+    public function testFindCachedAndCallbacks() {
 
         $opts1 = array(
             'limit' => 1,
@@ -310,9 +299,7 @@ class CacheableTestCase extends CakeTestCase {
         $result4 = $this->CacheThing->findCached($opts2);
         $this->assertTrue($result4);
         $this->assertEqual($result4, $result3);
-
     }
-
 }
 
 ?>
