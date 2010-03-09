@@ -3,22 +3,24 @@
 /**
  * Thing Fixture
  *
+ * @since       0.1
+ * @author      Joshua McNeese <jmcneese@gmail.com>
  * @package     cacheable
  * @subpackage  cacheable.tests.fixtures
- * @license		Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * @copyright	Copyright (c) 2010 Joshua M. McNeese, HouseParty Inc.
+ * @license     Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ * @copyright   Copyright (c) 2010 Joshua M. McNeese, HouseParty Inc.
  */
 class CacheThingFixture extends CakeTestFixture {
 
     /**
-     * @var     string
+     * @var string
      */
-    public $name    = 'CacheThing';
+    public $name = 'CacheThing';
 
     /**
-     * @var     array
+     * @var array
      */
-    public $fields  = array(
+    public $fields = array(
         'id'        => array(
             'type'  => 'integer',
             'length'=> 11,
@@ -33,7 +35,7 @@ class CacheThingFixture extends CakeTestFixture {
     );
 
     /**
-     * @var     array
+     * @var array
      */
     public $records = array(
         array(

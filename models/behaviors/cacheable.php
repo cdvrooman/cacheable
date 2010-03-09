@@ -7,17 +7,19 @@ App::import('Core', array('Security', 'Folder'));
  *
  * Model behavior to support caching of model-wide and record specific data
  *
+ * @since       0.1
+ * @author      Joshua McNeese <jmcneese@gmail.com>
  * @package     cacheable
  * @subpackage  cacheable.models.behaviors
- * @license		Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * @copyright	Copyright (c) 2010 Joshua M. McNeese, HouseParty Inc.
+ * @license     Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ * @copyright   Copyright (c) 2010 Joshua M. McNeese, HouseParty Inc.
  */
 final class CacheableBehavior extends ModelBehavior {
 
     /**
      * default config for all models
      *
-     * @var     array
+     * @var array
      */
     private $_defaults = array(
         'model' => array(
@@ -37,14 +39,14 @@ final class CacheableBehavior extends ModelBehavior {
     /**
      * Contain settings indexed by model name.
      *
-     * @var     array
+     * @var array
      */
     private $_settings = array();
 
     /**
      * Contain runtime configs indexed by model name.
      *
-     * @var     array
+     * @var array
      */
     private $_runtime = array();
     
@@ -108,6 +110,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Mapped afterDelete callback
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
@@ -120,6 +124,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Mapped afterFind callback
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   array   $results
@@ -149,6 +155,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Mapped afterSave callback
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   boolean $created
@@ -167,6 +175,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Mapped beforeFind callback
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   mixed   $queryData
@@ -218,6 +228,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Clear cached data model-wide, or record-specific
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   boolean $check
@@ -231,6 +243,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Delete a key from the cache, model-wide or record-specific
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   string  $key
@@ -244,6 +258,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Emulate Model::find(), returning cached data, if any
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   array   $options
@@ -260,6 +276,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Get the configuration for model-wide or record-specific cache
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   mixed   $id
@@ -289,6 +307,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Get the directory for model-wide or record-specific cache
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   mixed   $id
@@ -325,6 +345,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Get the data for model-wide or record-specific cache
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   string  $key
@@ -338,6 +360,9 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Generate a cache key based upon arbitrary input, using the system default
+     * hashing strategy
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   string  $str
@@ -350,6 +375,8 @@ final class CacheableBehavior extends ModelBehavior {
     }
 
     /**
+     * Set the data for model-wide or record-specific cache
+     *
      * @since   0.1
      * @author  Joshua McNeese <jmcneese@gmail.com>
      * @param   string  $key

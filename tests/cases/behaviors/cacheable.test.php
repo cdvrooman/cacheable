@@ -3,26 +3,32 @@
 /**
  * Generic CacheThing Model
  *
+ * @since       0.1
+ * @author      Joshua McNeese <jmcneese@gmail.com>
  * @package     cacheable
  * @subpackage  cacheable.tests.cases.behaviors
- * @license		Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * @copyright	Copyright (c) 2009,2010 Joshua M. McNeese, HouseParty Inc.
+ * @uses        CakeTestModel
+ * @license     Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ * @copyright   Copyright (c) 2009,2010 Joshua M. McNeese, HouseParty Inc.
  */
 class CacheThing extends CakeTestModel {}
 
 /**
  * CacheableBehavior Test Case
  *
+ * @since       0.1
+ * @author      Joshua McNeese <jmcneese@gmail.com>
  * @package     cacheable
  * @subpackage  cacheable.tests.cases.behaviors
  * @see         CacheableBehavior
- * @license		Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * @copyright	Copyright (c) 2009,2010 Joshua M. McNeese, HouseParty Inc.
+ * @see         CacheThing
+ * @license     Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ * @copyright   Copyright (c) 2009,2010 Joshua M. McNeese, HouseParty Inc.
  */
 class CacheableTestCase extends CakeTestCase {
 
     /**
-     * @var     array
+     * @var array
      */
     public $fixtures = array(
         'plugin.cacheable.cache_thing'
@@ -37,9 +43,12 @@ class CacheableTestCase extends CakeTestCase {
 
         $this->CacheThing = ClassRegistry::init('Cacheable.CacheThing');
         $this->CacheThing->Behaviors->attach('Cacheable.Cacheable');
+        
     }
 
     /**
+     * @since   0.1
+     * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
      */
     public function startTest($action) {
@@ -48,22 +57,28 @@ class CacheableTestCase extends CakeTestCase {
 
         Configure::write('Cache.disable', false);
         Configure::write('Cache.check', true);
+
     }
 
     /**
      * Test Instance Creation
      *
+     * @since   0.1
+     * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
      */
     public function testInstanceSetup() {
 
         $this->assertIsA($this->CacheThing, 'Model');
         $this->assertTrue($this->CacheThing->Behaviors->attached('Cacheable'));
+
     }
 
     /**
      * Test getting the cache dir
      *
+     * @since   0.1
+     * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
      */
     public function testGetCacheDir() {
@@ -84,11 +99,14 @@ class CacheableTestCase extends CakeTestCase {
         $this->assertTrue(file_exists($result3), "Directory not created: $result3 ");
         $this->assertTrue(is_dir($result3), "Path does not indicate a directory: $result3");
         $this->assertTrue(is_writeable($result3), "Directory not writeable: $result3");
+
     }
 
     /**
      * Test getting the cache config
      *
+     * @since   0.1
+     * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
      */
     public function testGetCacheConfig() {
@@ -101,11 +119,14 @@ class CacheableTestCase extends CakeTestCase {
         $result2 = $this->CacheThing->getCacheConfig($id1);
         $this->assertTrue(Cache::config($result2));
         $this->assertEqual($result2, $this->CacheThing->table . '_' . $id1);
+
     }
 
     /**
      * Test getting and setting the cache data
      *
+     * @since   0.1
+     * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
      */
     public function testGetAndSetCached() {
@@ -131,11 +152,14 @@ class CacheableTestCase extends CakeTestCase {
         $result4 = $this->CacheThing->getCached($key1, $uuid1);
         $this->assertTrue($result4);
         $this->assertEqual($result4, $data1);
+
     }
 
     /**
      * Test deleting specific cache data
      *
+     * @since   0.1
+     * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
      */
     public function testDeleteCached() {
@@ -163,11 +187,14 @@ class CacheableTestCase extends CakeTestCase {
 
         $result4 = $this->CacheThing->getCached($key1, $uuid1);
         $this->assertFalse($result4);
+
     }
 
     /**
      * Test deleting specific cache data
      *
+     * @since   0.1
+     * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
      */
     public function testClearCached() {
@@ -198,11 +225,14 @@ class CacheableTestCase extends CakeTestCase {
         $folder2 = new Folder($config2['path']);
         $contents2 = $folder2->read();
         $this->assertTrue(count($contents2['1']) == 0);
+
     }
 
     /**
      * Test afterSave callback
      *
+     * @since   0.1
+     * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
      */
     public function testAfterSave() {
@@ -230,11 +260,14 @@ class CacheableTestCase extends CakeTestCase {
 
         $result2 = $this->CacheThing->getCached('test');
         $this->assertFalse($result2);
+
     }
 
     /**
      * Test afterDelete callback
      *
+     * @since   0.1
+     * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
      */
     public function testAfterDelete() {
@@ -262,11 +295,14 @@ class CacheableTestCase extends CakeTestCase {
 
         $result2 = $this->CacheThing->getCached('test');
         $this->assertFalse($result2);
+
     }
 
     /**
      * Test afterDelete callback
      *
+     * @since   0.1
+     * @author  Joshua McNeese <jmcneese@gmail.com>
      * @return  void
      */
     public function testFindCachedAndCallbacks() {
@@ -299,7 +335,9 @@ class CacheableTestCase extends CakeTestCase {
         $result4 = $this->CacheThing->findCached($opts2);
         $this->assertTrue($result4);
         $this->assertEqual($result4, $result3);
+
     }
+    
 }
 
 ?>
